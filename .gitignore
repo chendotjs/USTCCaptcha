@@ -20,3 +20,9 @@ octave-workspace
 
 # Simulink autosave extension
 .autosave
+
+
+*.doc
+test/
+train/
+*.exe
