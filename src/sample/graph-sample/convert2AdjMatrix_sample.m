@@ -16,11 +16,8 @@ img2 = [
 
 graph2 = convert2AdjMatrix(img2)
 
-fprintf('biggest SCC of img1:\n');
-adjMatrix_dfs(graph1, 1,[])
+fprintf('SCC of img1:\n');
+adjMatrix_dfs(2, img1, graph1, 2)
 
-fprintf('one of SCC of img1:\n');
-adjMatrix_dfs(graph1, 4,[])
-
-fprintf('biggest SCC of img2:\n');
-adjMatrix_dfs(graph2, 1,[])
+fprintf('SCC of img2:\n');
+adjMatrix_dfs(1, img2, graph2, 1)

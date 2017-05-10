@@ -1,10 +1,22 @@
 % TODO: 对邻接矩阵进行深度搜索，获得所有连通分支
-% 初步想法： 随机抛点，规模小于阈值的连通分支不需要，循环直到达到所要聚类的个数
-function [set, delegate] = adjMatrix_dfs(adjMatrix, startPoint_id, nset)
+% 初步想法： 随机抛点，规模小于阈值的连通分支不需要，循环直到达到所要聚类(k)的个数
+function [set, delegate] = adjMatrix_dfs(k, bimgM, adjMatrix, size_thresh)
   global adjMvisited;
-
-  adjMvisited = zeros(1, length(adjMatrix)); % 每次查找单个连通分支时候都需要初始化visited
-  adjMatrix_p_dfs(adjMatrix, startPoint_id, nset)
+  cluster_hash = zeros(1, length(adjMatrix));
+  cluster = 0;
+  while cluster < k
+    randId = unidrnd(length(adjMatrix));
+    adjMvisited = zeros(1, length(adjMatrix)); % 每次查找单个连通分支时候都需要初始化visited
+    possible_cluster = adjMatrix_p_dfs(adjMatrix, randId, []);
+    possible_cluster = sort(possible_cluster);
+    if cluster_hash(possible_cluster(1)) == 0
+      cluster_hash(possible_cluster(1)) = 1;
+      if length(possible_cluster) >= size_thresh && sum(adjMatrix(possible_cluster(1),:)) > 0
+        possible_cluster  % found one
+        cluster = cluster + 1;
+      end
+    end
+  end
 end
 
 % 对邻接矩阵进行深度搜索，获得单个连通分支，需要指定一个起始点进行深度搜索
