@@ -2,7 +2,11 @@ clc;clear;
 
 alpha = 1;
 
-[vec,Ib, Ig, coor]= convert2kmeans('../../../train/3000_6_character/429NE6.bmp', alpha);
+imgLists  =  dir('../../../train/3000_6_character/*.bmp');
+
+randIndex = unidrnd(length(imgLists)); % 随机抽取一张训练集图片
+
+[vec,Ib, Ig, coor]= convert2kmeans(['../../../train/3000_6_character/', imgLists(randIndex).name], alpha);
 
 [idx, C] = kmeans(vec(:,1:2), 6); %TODO: 为什么这里加了灰度信息反而效果不好？ 可能不需要alpha？ 只需对特征进行正规化？
 

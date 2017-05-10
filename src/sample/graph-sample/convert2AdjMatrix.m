@@ -1,6 +1,6 @@
 % 将二值图片转换成邻接矩阵
 
-function matrix = convert2matrix(bimg)
+function matrix = convert2AdjMatrix(bimg)
   [x, y] = size(bimg);
   matrix = zeros(x * y, x * y);
   for i =  1:x
