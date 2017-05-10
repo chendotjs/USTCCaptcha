@@ -4,9 +4,8 @@ function [vec, Ib ,Ig, coor]= convert2kmeans(file, alpha)
   I = imread(file);
   I = clearNoise(I);
 
-  thresh = graythresh(I);     %自动确定二值化阈值
-  Ib = im2bw(I,thresh);       %对图像二值化
-  Ig = rgb2gray(I);
+  Ig = rgb2gray(I);           %转成灰度图
+  Ib = im2binar(Ig,230);       %对图像二值化
 
   [x, y, z] = size(I);
   index = 1;
@@ -39,4 +38,19 @@ function Iimg = clearNoise(I)
       end
     end
   end
+end
+
+function Ib = im2binar(Ig, thresh)
+  [x, y] = size(Ig);
+  Ib = Ig;
+  for i = 1:x
+    for j = 1:y
+      if Ig(i, j) <= thresh
+        Ib(i, j) = 0;
+      else
+        Ib(i, j) = 1;
+      end
+    end
+  end
+  Ib = mat2gray(Ib);
 end
