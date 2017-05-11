@@ -1,12 +1,10 @@
 clc;clear;
 
-alpha = 1;
-
 imgLists  =  dir('../../../train/3000_6_character/*.bmp');
 
 randIndex = unidrnd(length(imgLists)); % 随机抽取一张训练集图片
 
-[vec,Ib, Ig, coor]= convert2kmeans(['../../../train/3000_6_character/', imgLists(randIndex).name], alpha);
+[vec,Ib, Ig, coor]= convert2kmeans(['../../../train/3000_6_character/', imgLists(randIndex).name], 1);
 
 while 1
   [idx, C] = kmeans(vec(:,1:2), 6); %TODO: 为什么这里加了灰度信息反而效果不好？ 可能不需要alpha？ 只需对特征进行正规化？
@@ -32,14 +30,12 @@ for cluster = 1:6
   showCluster(Ib, idx, coor, vec, cluster);
 end
 
-
+% 绘制聚类中心
 figure();
 Ibcentroid = ones(size(Ib));
 for i=1:size(C)
-  x = C(i,1);
-  y = C(i,2);
-  x = uint32(x);
-  y = uint32(y);
+  x = uint32(C(i,1));
+  y = uint32(C(i,2));
   Ibcentroid(x,y) = 0;
 end
 imshow(Ibcentroid);

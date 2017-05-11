@@ -1,18 +1,18 @@
 % 将 m*n*p 的三维矩阵转换为 mn * p的二维矩阵
-% 特征选取：rgb颜色 + 位置
+% 特征选取：灰度值 + 坐标
 function [vec, Ib ,Ig, coor]= convert2kmeans(file, alpha)
   I = imread(file);
   I = clearNoise(I);
 
   Ig = rgb2gray(I);           %转成灰度图
-  Ib = im2binar(Ig,230);       %对图像二值化
+  Ib = im2binar(Ig, 230);       %对图像二值化
 
   [x, y, z] = size(I);
   index = 1;
 
-  for i = 2:x - 1
+  for i = 2:x - 1     % 去掉边框，边框的像素点不参与聚类
     for j = 2:y -1
-      t = [alpha * i; alpha * j; Ig(i, j)]; %每个像素的特征 ，携带位置信息及灰度值
+      t = [ i; j; alpha * Ig(i, j)]; %每个像素的特征 ，携带位置信息及灰度值
       if Ib(i, j) == 0
         vec(index, :) = double(t);
         coor(index, :) = [i, j];
@@ -22,7 +22,7 @@ function [vec, Ib ,Ig, coor]= convert2kmeans(file, alpha)
   end
 end
 
-
+% 把背景中灰色的噪点去掉
 function Iimg = clearNoise(I)
   [x, y, z] = size(I);
   Iimg = I;
@@ -39,6 +39,7 @@ function Iimg = clearNoise(I)
   end
 end
 
+% 把灰度图转成二值图， thresh是区分白色和其他颜色的阈值
 function Ib = im2binar(Ig, thresh)
   [x, y] = size(Ig);
   Ib = Ig;
