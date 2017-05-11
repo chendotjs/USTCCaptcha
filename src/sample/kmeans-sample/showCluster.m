@@ -8,6 +8,6 @@ function Ibnew = showCluster(Ib, idx, coor, vec, cluster)
       Ibnew(x, y) = 0;
     end
   end
-  figure(cluster);
+  figure();
   imshow(Ibnew)
 end

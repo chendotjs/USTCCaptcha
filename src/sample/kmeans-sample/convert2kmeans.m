@@ -12,8 +12,7 @@ function [vec, Ib ,Ig, coor]= convert2kmeans(file, alpha)
 
   for i = 2:x - 1
     for j = 2:y -1
-      t = Ig(i, j);
-      t = [alpha * i;alpha * j;t]; % 携带位置信息
+      t = [alpha * i; alpha * j; Ig(i, j)]; %每个像素的特征 ，携带位置信息及灰度值
       if Ib(i, j) == 0
         vec(index, :) = double(t);
         coor(index, :) = [i, j];
