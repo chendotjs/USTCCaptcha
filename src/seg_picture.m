@@ -9,7 +9,7 @@ function [Centroids, cooridx, IbSet] = seg_picture(file, k,  N)
     icluster = coor(idx == Centroids(i, 3), :); % 从左向右的k个聚类
     icluster = [icluster(:, 1) - min(icluster(:, 1)) + 1, icluster(:, 2) - min(icluster(:, 2)) + 1]; % 重新把原点移动到最左上方
     Ib = makeCharImg(icluster, N);
-    IbSet = [Ib, IbSet];
+    IbSet = [IbSet, Ib];
     % for debug
     % figure();
     % imshow(Ib);
