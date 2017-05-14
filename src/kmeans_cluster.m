@@ -13,7 +13,7 @@ function [idx, C] = kmeans_cluster(featureVec, k)
     % 聚类的中心可能初始化不够好，需要检查聚类中心的排布
     C2 = sort(C(:,2)); % C2应该是个近似的等差数列
     CInterval = C2(2:end) - C2(1:end-1);  % CInterval应该是个近似相等的数列
-    if var(CInterval) < 6 % 方差的阈值, 如果聚类效果不好的话，方差会达到大几十
+    if var(CInterval) < 16 % 方差的阈值, 如果聚类效果不好的话，方差会达到大几十
       break;
     end
   end

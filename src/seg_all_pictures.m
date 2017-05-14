@@ -1,6 +1,6 @@
 clear;clc;
 
-N = 18;
+N = 20;
 k = 6;
 segPath = '../train_seg/';
 
@@ -13,6 +13,7 @@ mkdir(segPath);
 % trainFilesPath = trainFilesPath(1:5, :);
 
 for i = 1:size(trainFilesPath)
+  i
   [Centroids, cooridx, IbSet] = seg_picture(trainFilesPath(i, :), k, N);
   for j = 1:k
     seg_img_name = [trainFilesName(i, j), '-', num2str(j), '-', trainFilesName(i, :)]
@@ -22,7 +23,7 @@ for i = 1:size(trainFilesPath)
     % for debug
 
     % write file
-    imwrite(extractIb(IbSet, N, j), [segPath, seg_img_name, '.bmp'], 'bmp');
+    imwrite(extractIb(IbSet, N, j), [segPath, seg_img_name], 'bmp');
   end
 end
 
