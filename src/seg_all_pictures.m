@@ -1,6 +1,6 @@
 clear;clc;
 
-N = 20;
+N = 25;
 k = 6;
 segPath = '../train_seg/';
 
