@@ -4,11 +4,12 @@ function [Centroids, cooridx, IbSet] = seg_picture(file, k,  N)
   [idx, Centroids] = kmeans_cluster(featureVec, k);
   cooridx = [coor, idx]; % 每个坐标对应的分类标签
   Centroids = round(Centroids); % 四舍五入聚类中心
-  % TODO: Centroids needs to recalc
+  segCentroids = zeros(size(Centroids)); % 分割出来的二值图像的中心
   IbSet = [];
-  freeSpace = 5  % leave enough space for rotate
+  freeSpace = 5;  % 左上角为旋转预留空间
   for i = 1:k
     icluster = coor(idx == Centroids(i, 3), :); % 从左向右的k个聚类
+    segCentroids(i,:) = [Centroids(i,1) - min(icluster(:, 1)) + 1 + freeSpace, Centroids(i,2) - min(icluster(:, 2)) + 1 + freeSpace, Centroids(i,3)];
     icluster = [icluster(:, 1) - min(icluster(:, 1)) + 1 + freeSpace, icluster(:, 2) - min(icluster(:, 2)) + 1 + freeSpace]; % 重新把原点移动到最左上方
     Ib = makeCharImg(icluster, N);
     IbSet = [IbSet, Ib];
