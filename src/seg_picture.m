@@ -12,7 +12,7 @@ function [Centroids, cooridx, IbSet] = seg_picture(file, k,  N)
     segCentroids(i,:) = [Centroids(i,1) - min(icluster(:, 1)) + 1 + freeSpace, Centroids(i,2) - min(icluster(:, 2)) + 1 + freeSpace, Centroids(i,3)];
     icluster = [icluster(:, 1) - min(icluster(:, 1)) + 1 + freeSpace, icluster(:, 2) - min(icluster(:, 2)) + 1 + freeSpace]; % 重新把原点移动到最左上方
     Ib = makeCharImg(icluster, N);
-    [rAngle, Irb] = rotateAndSqueeze(Ib, segCentroids(i,1), segCentroids(i,2), -30, 30); % 旋转并找到得到最小的宽度的角度
+    [rAngle, Irb] = rotateAndSqueeze(Ib, segCentroids(i,1), segCentroids(i,2), -20, 20); % 旋转并找到得到最小的宽度的角度
     IbSet = [IbSet, Irb];
     % for debug
     % figure();
