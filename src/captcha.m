@@ -22,7 +22,7 @@ function varargout = captcha(varargin)
 
 % Edit the above text to modify the response to help captcha
 
-% Last Modified by GUIDE v2.5 30-May-2017 22:39:45
+% Last Modified by GUIDE v2.5 31-May-2017 09:25:53
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -102,6 +102,12 @@ imshow(img_src);  % 用imread读入图片，并用imshow在axes_src上显示
 % 显示文件名
 set(handles.text_srcname, 'String', filename);
 
+% 初始化checkbox
+set(handles.checkbox1, 'Value', 0);
+set(handles.checkbox2, 'Value', 0);
+set(handles.checkbox3, 'Value', 0);
+set(handles.checkbox4, 'Value', 0);
+
 N = 25;
 k = 4;
 [Centroids, cooridx, IbSet] = seg_picture(fpath, k, N);
@@ -139,6 +145,7 @@ imshow(Ib);
 label = knn_predict(Mdl, Ib);
 set(handles.text_1, 'String', label);
 if label == answer(1)
+  set(handles.checkbox1, 'Value', 1);
   correctCnt = correctCnt + 1;
 end
 
@@ -148,6 +155,7 @@ imshow(Ib);
 label = knn_predict(Mdl, Ib);
 set(handles.text_2, 'String', label);
 if label == answer(2)
+  set(handles.checkbox2, 'Value', 1);
   correctCnt = correctCnt + 1;
 end
 
@@ -157,6 +165,7 @@ imshow(Ib);
 label = knn_predict(Mdl, Ib);
 set(handles.text_3, 'String', label);
 if label == answer(3)
+  set(handles.checkbox3, 'Value', 1);
   correctCnt = correctCnt + 1;
 end
 
@@ -166,7 +175,44 @@ imshow(Ib);
 label = knn_predict(Mdl, Ib);
 set(handles.text_4, 'String', label);
 if label == answer(4)
+  set(handles.checkbox4, 'Value', 1);
   correctCnt = correctCnt + 1;
 end
 
 set(handles.text_rate, 'String', sprintf('%2.2f%%', correctCnt / 4 * 100) );
+
+
+% --- Executes on button press in checkbox1.
+function checkbox1_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox1
+
+
+% --- Executes on button press in checkbox2.
+function checkbox2_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox2
+
+
+% --- Executes on button press in checkbox3.
+function checkbox3_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox3
+
+
+% --- Executes on button press in checkbox4.
+function checkbox4_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox4
